@@ -1,0 +1,12 @@
+node_modules
+.env
+.env.local
+.next
+out
+build
+*.test.ts
+*.test.tsx
+__tests__
+e2e
+playwright-report
+test-results
