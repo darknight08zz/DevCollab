@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { prisma } from '../lib/prisma';
-import redis from '../lib/redis';
+import { redis } from '../lib/redis';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
 
 const router = Router();
@@ -24,7 +24,7 @@ router.post('/sessions/revoke-all', async (req: AuthRequest, res) => {
   const currentSessionId = req.headers['x-session-id'] as string;
   try {
     const sessions = await redis.smembers(`user_sessions:${userId}`);
-    const toRevoke = sessions.filter(s => s !== currentSessionId);
+    const toRevoke = sessions.filter((s: string) => s !== currentSessionId);
     
     if (toRevoke.length > 0) {
       await redis.srem(`user_sessions:${userId}`, ...toRevoke);

@@ -189,13 +189,13 @@ model Comment {
 }
 
 model Subscription {
-  id                   String   @id @default(uuid())
-  workspaceId          String   @unique
-  stripeCustomerId     String
-  stripePriceId        String
-  stripeSubscriptionId String   @unique
-  status               String
-  currentPeriodEnd     DateTime
+  id                         String   @id @default(uuid())
+  workspaceId                String   @unique
+  lemonSqueezyCustomerId     String
+  lemonSqueezyVariantId      String
+  lemonSqueezySubscriptionId String   @unique
+  status                     String
+  currentPeriodEnd           DateTime
 
   workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
 

@@ -1,6 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { AuthRequest } from './auth';
-import redis from '../lib/redis';
+import { redis } from '../lib/redis';
 
 export async function sessionTracker(req: AuthRequest, res: Response, next: NextFunction) {
   if (req.user) {

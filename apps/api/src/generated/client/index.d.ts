@@ -11795,9 +11795,9 @@ export namespace Prisma {
   export type SubscriptionMinAggregateOutputType = {
     id: string | null
     workspaceId: string | null
-    stripeCustomerId: string | null
-    stripePriceId: string | null
-    stripeSubscriptionId: string | null
+    lemonSqueezyCustomerId: string | null
+    lemonSqueezyVariantId: string | null
+    lemonSqueezySubscriptionId: string | null
     status: string | null
     currentPeriodEnd: Date | null
   }
@@ -11805,9 +11805,9 @@ export namespace Prisma {
   export type SubscriptionMaxAggregateOutputType = {
     id: string | null
     workspaceId: string | null
-    stripeCustomerId: string | null
-    stripePriceId: string | null
-    stripeSubscriptionId: string | null
+    lemonSqueezyCustomerId: string | null
+    lemonSqueezyVariantId: string | null
+    lemonSqueezySubscriptionId: string | null
     status: string | null
     currentPeriodEnd: Date | null
   }
@@ -11815,9 +11815,9 @@ export namespace Prisma {
   export type SubscriptionCountAggregateOutputType = {
     id: number
     workspaceId: number
-    stripeCustomerId: number
-    stripePriceId: number
-    stripeSubscriptionId: number
+    lemonSqueezyCustomerId: number
+    lemonSqueezyVariantId: number
+    lemonSqueezySubscriptionId: number
     status: number
     currentPeriodEnd: number
     _all: number
@@ -11827,9 +11827,9 @@ export namespace Prisma {
   export type SubscriptionMinAggregateInputType = {
     id?: true
     workspaceId?: true
-    stripeCustomerId?: true
-    stripePriceId?: true
-    stripeSubscriptionId?: true
+    lemonSqueezyCustomerId?: true
+    lemonSqueezyVariantId?: true
+    lemonSqueezySubscriptionId?: true
     status?: true
     currentPeriodEnd?: true
   }
@@ -11837,9 +11837,9 @@ export namespace Prisma {
   export type SubscriptionMaxAggregateInputType = {
     id?: true
     workspaceId?: true
-    stripeCustomerId?: true
-    stripePriceId?: true
-    stripeSubscriptionId?: true
+    lemonSqueezyCustomerId?: true
+    lemonSqueezyVariantId?: true
+    lemonSqueezySubscriptionId?: true
     status?: true
     currentPeriodEnd?: true
   }
@@ -11847,9 +11847,9 @@ export namespace Prisma {
   export type SubscriptionCountAggregateInputType = {
     id?: true
     workspaceId?: true
-    stripeCustomerId?: true
-    stripePriceId?: true
-    stripeSubscriptionId?: true
+    lemonSqueezyCustomerId?: true
+    lemonSqueezyVariantId?: true
+    lemonSqueezySubscriptionId?: true
     status?: true
     currentPeriodEnd?: true
     _all?: true
@@ -11930,9 +11930,9 @@ export namespace Prisma {
   export type SubscriptionGroupByOutputType = {
     id: string
     workspaceId: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date
     _count: SubscriptionCountAggregateOutputType | null
@@ -11957,9 +11957,9 @@ export namespace Prisma {
   export type SubscriptionSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
-    stripeCustomerId?: boolean
-    stripePriceId?: boolean
-    stripeSubscriptionId?: boolean
+    lemonSqueezyCustomerId?: boolean
+    lemonSqueezyVariantId?: boolean
+    lemonSqueezySubscriptionId?: boolean
     status?: boolean
     currentPeriodEnd?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -11968,9 +11968,9 @@ export namespace Prisma {
   export type SubscriptionSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
-    stripeCustomerId?: boolean
-    stripePriceId?: boolean
-    stripeSubscriptionId?: boolean
+    lemonSqueezyCustomerId?: boolean
+    lemonSqueezyVariantId?: boolean
+    lemonSqueezySubscriptionId?: boolean
     status?: boolean
     currentPeriodEnd?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -11979,9 +11979,9 @@ export namespace Prisma {
   export type SubscriptionSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     workspaceId?: boolean
-    stripeCustomerId?: boolean
-    stripePriceId?: boolean
-    stripeSubscriptionId?: boolean
+    lemonSqueezyCustomerId?: boolean
+    lemonSqueezyVariantId?: boolean
+    lemonSqueezySubscriptionId?: boolean
     status?: boolean
     currentPeriodEnd?: boolean
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
@@ -11990,14 +11990,14 @@ export namespace Prisma {
   export type SubscriptionSelectScalar = {
     id?: boolean
     workspaceId?: boolean
-    stripeCustomerId?: boolean
-    stripePriceId?: boolean
-    stripeSubscriptionId?: boolean
+    lemonSqueezyCustomerId?: boolean
+    lemonSqueezyVariantId?: boolean
+    lemonSqueezySubscriptionId?: boolean
     status?: boolean
     currentPeriodEnd?: boolean
   }
 
-  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "stripeCustomerId" | "stripePriceId" | "stripeSubscriptionId" | "status" | "currentPeriodEnd", ExtArgs["result"]["subscription"]>
+  export type SubscriptionOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "workspaceId" | "lemonSqueezyCustomerId" | "lemonSqueezyVariantId" | "lemonSqueezySubscriptionId" | "status" | "currentPeriodEnd", ExtArgs["result"]["subscription"]>
   export type SubscriptionInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     workspace?: boolean | WorkspaceDefaultArgs<ExtArgs>
   }
@@ -12016,9 +12016,9 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       workspaceId: string
-      stripeCustomerId: string
-      stripePriceId: string
-      stripeSubscriptionId: string
+      lemonSqueezyCustomerId: string
+      lemonSqueezyVariantId: string
+      lemonSqueezySubscriptionId: string
       status: string
       currentPeriodEnd: Date
     }, ExtArgs["result"]["subscription"]>
@@ -12447,9 +12447,9 @@ export namespace Prisma {
   interface SubscriptionFieldRefs {
     readonly id: FieldRef<"Subscription", 'String'>
     readonly workspaceId: FieldRef<"Subscription", 'String'>
-    readonly stripeCustomerId: FieldRef<"Subscription", 'String'>
-    readonly stripePriceId: FieldRef<"Subscription", 'String'>
-    readonly stripeSubscriptionId: FieldRef<"Subscription", 'String'>
+    readonly lemonSqueezyCustomerId: FieldRef<"Subscription", 'String'>
+    readonly lemonSqueezyVariantId: FieldRef<"Subscription", 'String'>
+    readonly lemonSqueezySubscriptionId: FieldRef<"Subscription", 'String'>
     readonly status: FieldRef<"Subscription", 'String'>
     readonly currentPeriodEnd: FieldRef<"Subscription", 'DateTime'>
   }
@@ -16236,9 +16236,9 @@ export namespace Prisma {
   export const SubscriptionScalarFieldEnum: {
     id: 'id',
     workspaceId: 'workspaceId',
-    stripeCustomerId: 'stripeCustomerId',
-    stripePriceId: 'stripePriceId',
-    stripeSubscriptionId: 'stripeSubscriptionId',
+    lemonSqueezyCustomerId: 'lemonSqueezyCustomerId',
+    lemonSqueezyVariantId: 'lemonSqueezyVariantId',
+    lemonSqueezySubscriptionId: 'lemonSqueezySubscriptionId',
     status: 'status',
     currentPeriodEnd: 'currentPeriodEnd'
   };
@@ -17150,9 +17150,9 @@ export namespace Prisma {
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
     id?: StringFilter<"Subscription"> | string
     workspaceId?: StringFilter<"Subscription"> | string
-    stripeCustomerId?: StringFilter<"Subscription"> | string
-    stripePriceId?: StringFilter<"Subscription"> | string
-    stripeSubscriptionId?: StringFilter<"Subscription"> | string
+    lemonSqueezyCustomerId?: StringFilter<"Subscription"> | string
+    lemonSqueezyVariantId?: StringFilter<"Subscription"> | string
+    lemonSqueezySubscriptionId?: StringFilter<"Subscription"> | string
     status?: StringFilter<"Subscription"> | string
     currentPeriodEnd?: DateTimeFilter<"Subscription"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
@@ -17161,9 +17161,9 @@ export namespace Prisma {
   export type SubscriptionOrderByWithRelationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
-    stripeCustomerId?: SortOrder
-    stripePriceId?: SortOrder
-    stripeSubscriptionId?: SortOrder
+    lemonSqueezyCustomerId?: SortOrder
+    lemonSqueezyVariantId?: SortOrder
+    lemonSqueezySubscriptionId?: SortOrder
     status?: SortOrder
     currentPeriodEnd?: SortOrder
     workspace?: WorkspaceOrderByWithRelationInput
@@ -17172,23 +17172,23 @@ export namespace Prisma {
   export type SubscriptionWhereUniqueInput = Prisma.AtLeast<{
     id?: string
     workspaceId?: string
-    stripeSubscriptionId?: string
+    lemonSqueezySubscriptionId?: string
     AND?: SubscriptionWhereInput | SubscriptionWhereInput[]
     OR?: SubscriptionWhereInput[]
     NOT?: SubscriptionWhereInput | SubscriptionWhereInput[]
-    stripeCustomerId?: StringFilter<"Subscription"> | string
-    stripePriceId?: StringFilter<"Subscription"> | string
+    lemonSqueezyCustomerId?: StringFilter<"Subscription"> | string
+    lemonSqueezyVariantId?: StringFilter<"Subscription"> | string
     status?: StringFilter<"Subscription"> | string
     currentPeriodEnd?: DateTimeFilter<"Subscription"> | Date | string
     workspace?: XOR<WorkspaceScalarRelationFilter, WorkspaceWhereInput>
-  }, "id" | "workspaceId" | "stripeSubscriptionId">
+  }, "id" | "workspaceId" | "lemonSqueezySubscriptionId">
 
   export type SubscriptionOrderByWithAggregationInput = {
     id?: SortOrder
     workspaceId?: SortOrder
-    stripeCustomerId?: SortOrder
-    stripePriceId?: SortOrder
-    stripeSubscriptionId?: SortOrder
+    lemonSqueezyCustomerId?: SortOrder
+    lemonSqueezyVariantId?: SortOrder
+    lemonSqueezySubscriptionId?: SortOrder
     status?: SortOrder
     currentPeriodEnd?: SortOrder
     _count?: SubscriptionCountOrderByAggregateInput
@@ -17202,9 +17202,9 @@ export namespace Prisma {
     NOT?: SubscriptionScalarWhereWithAggregatesInput | SubscriptionScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Subscription"> | string
     workspaceId?: StringWithAggregatesFilter<"Subscription"> | string
-    stripeCustomerId?: StringWithAggregatesFilter<"Subscription"> | string
-    stripePriceId?: StringWithAggregatesFilter<"Subscription"> | string
-    stripeSubscriptionId?: StringWithAggregatesFilter<"Subscription"> | string
+    lemonSqueezyCustomerId?: StringWithAggregatesFilter<"Subscription"> | string
+    lemonSqueezyVariantId?: StringWithAggregatesFilter<"Subscription"> | string
+    lemonSqueezySubscriptionId?: StringWithAggregatesFilter<"Subscription"> | string
     status?: StringWithAggregatesFilter<"Subscription"> | string
     currentPeriodEnd?: DateTimeWithAggregatesFilter<"Subscription"> | Date | string
   }
@@ -18151,9 +18151,9 @@ export namespace Prisma {
 
   export type SubscriptionCreateInput = {
     id?: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date | string
     workspace: WorkspaceCreateNestedOneWithoutSubscriptionInput
@@ -18162,18 +18162,18 @@ export namespace Prisma {
   export type SubscriptionUncheckedCreateInput = {
     id?: string
     workspaceId: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date | string
   }
 
   export type SubscriptionUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
     workspace?: WorkspaceUpdateOneRequiredWithoutSubscriptionNestedInput
@@ -18182,9 +18182,9 @@ export namespace Prisma {
   export type SubscriptionUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     workspaceId?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18192,18 +18192,18 @@ export namespace Prisma {
   export type SubscriptionCreateManyInput = {
     id?: string
     workspaceId: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date | string
   }
 
   export type SubscriptionUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -18211,9 +18211,9 @@ export namespace Prisma {
   export type SubscriptionUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     workspaceId?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -19125,9 +19125,9 @@ export namespace Prisma {
   export type SubscriptionCountOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
-    stripeCustomerId?: SortOrder
-    stripePriceId?: SortOrder
-    stripeSubscriptionId?: SortOrder
+    lemonSqueezyCustomerId?: SortOrder
+    lemonSqueezyVariantId?: SortOrder
+    lemonSqueezySubscriptionId?: SortOrder
     status?: SortOrder
     currentPeriodEnd?: SortOrder
   }
@@ -19135,9 +19135,9 @@ export namespace Prisma {
   export type SubscriptionMaxOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
-    stripeCustomerId?: SortOrder
-    stripePriceId?: SortOrder
-    stripeSubscriptionId?: SortOrder
+    lemonSqueezyCustomerId?: SortOrder
+    lemonSqueezyVariantId?: SortOrder
+    lemonSqueezySubscriptionId?: SortOrder
     status?: SortOrder
     currentPeriodEnd?: SortOrder
   }
@@ -19145,9 +19145,9 @@ export namespace Prisma {
   export type SubscriptionMinOrderByAggregateInput = {
     id?: SortOrder
     workspaceId?: SortOrder
-    stripeCustomerId?: SortOrder
-    stripePriceId?: SortOrder
-    stripeSubscriptionId?: SortOrder
+    lemonSqueezyCustomerId?: SortOrder
+    lemonSqueezyVariantId?: SortOrder
+    lemonSqueezySubscriptionId?: SortOrder
     status?: SortOrder
     currentPeriodEnd?: SortOrder
   }
@@ -21215,18 +21215,18 @@ export namespace Prisma {
 
   export type SubscriptionCreateWithoutWorkspaceInput = {
     id?: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date | string
   }
 
   export type SubscriptionUncheckedCreateWithoutWorkspaceInput = {
     id?: string
-    stripeCustomerId: string
-    stripePriceId: string
-    stripeSubscriptionId: string
+    lemonSqueezyCustomerId: string
+    lemonSqueezyVariantId: string
+    lemonSqueezySubscriptionId: string
     status: string
     currentPeriodEnd: Date | string
   }
@@ -21391,18 +21391,18 @@ export namespace Prisma {
 
   export type SubscriptionUpdateWithoutWorkspaceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type SubscriptionUncheckedUpdateWithoutWorkspaceInput = {
     id?: StringFieldUpdateOperationsInput | string
-    stripeCustomerId?: StringFieldUpdateOperationsInput | string
-    stripePriceId?: StringFieldUpdateOperationsInput | string
-    stripeSubscriptionId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyCustomerId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezyVariantId?: StringFieldUpdateOperationsInput | string
+    lemonSqueezySubscriptionId?: StringFieldUpdateOperationsInput | string
     status?: StringFieldUpdateOperationsInput | string
     currentPeriodEnd?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -223,9 +223,9 @@ exports.Prisma.CommentScalarFieldEnum = {
 exports.Prisma.SubscriptionScalarFieldEnum = {
   id: 'id',
   workspaceId: 'workspaceId',
-  stripeCustomerId: 'stripeCustomerId',
-  stripePriceId: 'stripePriceId',
-  stripeSubscriptionId: 'stripeSubscriptionId',
+  lemonSqueezyCustomerId: 'lemonSqueezyCustomerId',
+  lemonSqueezyVariantId: 'lemonSqueezyVariantId',
+  lemonSqueezySubscriptionId: 'lemonSqueezySubscriptionId',
   status: 'status',
   currentPeriodEnd: 'currentPeriodEnd'
 };
