@@ -7,7 +7,7 @@ cmds = ["pnpm install --frozen-lockfile"]
 [phases.build]
 cmds = [
   "pnpm --filter=@devcollab/shared build",
-  "pnpm --filter=@devcollab/api prisma generate",
+  "pnpm --filter=@devcollab/api exec prisma generate",
   "pnpm --filter=@devcollab/api build"
 ]
 
