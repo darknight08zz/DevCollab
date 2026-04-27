@@ -89,26 +89,6 @@ export const initSocket = (httpServer: HttpServer) => {
     console.log(`User connected: ${user.name} (${socket.id})`);
 
     socket.on("join-session", async ({ sessionId }) => {
-      // Plan Check: Real-time requires PRO
-      const session = await prisma.reviewSession.findUnique({
-        where: { id: sessionId },
-        include: { pullRequest: { include: { repository: true } } }
-      });
-
-      if (session && session.pullRequest.repository.workspaceId) {
-        const workspace = await prisma.workspace.findUnique({
-          where: { id: session.pullRequest.repository.workspaceId }
-        });
-
-        if (workspace && (workspace.plan === 'FREE')) {
-          socket.emit('error', { 
-            code: 'UPGRADE_REQUIRED', 
-            message: 'Real-time collaboration requires a PRO plan.' 
-          });
-          return;
-        }
-      }
-
       const room = `session:${sessionId}`;
       socket.join(room);
 

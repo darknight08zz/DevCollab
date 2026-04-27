@@ -1,14 +1,13 @@
 import { Router } from 'express';
 import { prisma } from '../lib/prisma';
 import { authMiddleware, AuthRequest } from '../middleware/auth';
-import { requirePlan } from '../middleware/plan-gate';
 
 const router = Router();
 
 router.use(authMiddleware);
 
 // POST /integrations/slack/connect (TEAM Plan Only)
-router.post('/slack/connect', requirePlan('TEAM'), async (req: AuthRequest, res) => {
+router.post('/slack/connect', async (req: AuthRequest, res) => {
   const { workspaceId, webhookUrl, channelName } = req.body;
   const userId = req.user!.id;
 

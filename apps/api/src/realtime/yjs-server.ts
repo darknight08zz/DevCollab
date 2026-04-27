@@ -41,24 +41,6 @@ export const initYjsServer = () => {
     try {
       jwt.verify(token, process.env.JWT_SECRET!) as AuthUser;
       
-      // Plan Check: Yjs requires PRO
-      const session = await prisma.reviewSession.findUnique({
-        where: { id: sessionId },
-        include: { pullRequest: { include: { repository: true } } }
-      });
-
-      if (session && session.pullRequest.repository.workspaceId) {
-        const workspace = await prisma.workspace.findUnique({
-          where: { id: session.pullRequest.repository.workspaceId }
-        });
-
-        if (workspace && workspace.plan === 'FREE') {
-          console.error(`Yjs Connection denied: Workspace ${workspace.id} is on FREE plan`);
-          ws.close(4003, 'Upgrade required');
-          return;
-        }
-      }
-
       // Setup Yjs connection with persistence
       setupWSConnection(ws, req, {
         docName: `session:${sessionId}`,

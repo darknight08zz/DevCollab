@@ -88,7 +88,7 @@ export class NotificationService {
         include: { slackConfig: true }
       });
 
-      if (!workspace?.slackConfig || workspace.plan === 'FREE') return;
+      if (!workspace?.slackConfig) return;
 
       const { webhookUrl } = workspace.slackConfig;
 

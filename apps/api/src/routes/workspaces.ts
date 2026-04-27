@@ -55,19 +55,7 @@ router.post('/', async (req: AuthRequest, res) => {
   const slug = slugify(name, { lower: true, strict: true }) + '-' + Math.random().toString(36).substring(2, 7);
 
   try {
-    // Plan Check: FREE users are limited to 1 workspace
-    const ownedWorkspaces = await prisma.workspace.findMany({
-      where: { ownerId: userId },
-      include: { subscription: true }
-    });
-
-    const activeProWorkspace = ownedWorkspaces.find(ws => ws.plan !== 'FREE');
-    if (ownedWorkspaces.length >= 1 && !activeProWorkspace) {
-      return res.status(402).json({ 
-        error: 'upgrade_required', 
-        message: 'Free users are limited to 1 workspace. Upgrade to Pro for more.' 
-      });
-    }
+    // Workspace creation
 
     const workspace = await prisma.workspace.create({
       data: {
@@ -332,9 +320,6 @@ router.get('/:slug/audit-log', async (req: AuthRequest, res) => {
     });
 
     if (!workspace) return res.status(404).json({ message: 'Workspace not found' });
-    if (workspace.plan === 'FREE' || workspace.plan === 'PRO') {
-      return res.status(402).json({ error: 'upgrade_required', message: 'Audit Log requires TEAM plan' });
-    }
 
     const logs = await prisma.auditLog.findMany({
       where: { workspaceId: workspace.id },

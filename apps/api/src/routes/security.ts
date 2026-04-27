@@ -1,7 +1,6 @@
 import { Router } from 'express';
 import { PrismaClient } from '../generated/client';
 import { authMiddleware as authenticate, AuthRequest } from '../middleware/auth';
-import { requirePlan } from '../middleware/plan-gate';
 import axios from 'axios';
 import parseDiff from 'parse-diff';
 import { preScanDiff, scanForVulnerabilities, calculateSecurityScore } from '../ai/security-scanner';
@@ -9,8 +8,6 @@ import { NotificationService } from '../lib/notifications';
 
 const router = Router();
 const prisma = new PrismaClient();
-
-router.use(requirePlan('TEAM'));
 
 // POST /prs/:prId/security/scan
 router.post('/prs/:prId/security/scan', authenticate, async (req: AuthRequest, res) => {

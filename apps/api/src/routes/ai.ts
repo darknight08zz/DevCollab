@@ -2,7 +2,6 @@ import { Router } from 'express';
 import { PrismaClient } from '../generated/client';
 import { analyzeDiff, generatePRSummary, suggestFix } from '../ai/reviewer';
 import { authMiddleware as authenticate, AuthRequest } from '../middleware/auth';
-import { requirePlan } from '../middleware/plan-gate';
 import axios from 'axios';
 import parseDiff from 'parse-diff';
 import { NotificationService } from '../lib/notifications';
@@ -12,8 +11,6 @@ import crypto from 'crypto';
 
 const router = Router();
 const prisma = new PrismaClient();
-
-router.use(requirePlan('PRO'));
 
 const AI_USER_ID = '00000000-0000-0000-0000-000000000000'; // Fixed UUID for AI
 

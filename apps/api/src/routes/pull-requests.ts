@@ -66,17 +66,6 @@ router.post('/workspaces/:slug/repos/:repoId/prs/sync', async (req: AuthRequest,
     }
 
     const workspace = await prisma.workspace.findUnique({ where: { id: repo.workspaceId } });
-    if (workspace?.plan === 'FREE') {
-      const activePrCount = await prisma.pullRequest.count({
-        where: { repositoryId: repoId, status: 'OPEN' }
-      });
-      if (activePrCount >= 3) {
-        return res.status(402).json({ 
-          error: 'upgrade_required', 
-          message: 'Free workspaces are limited to 3 active pull requests.' 
-        });
-      }
-    }
 
     // Fetch PRs from GitHub
     const response = await axios.get(`https://api.github.com/repos/${repo.fullName}/pulls`, {
