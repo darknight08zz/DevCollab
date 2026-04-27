@@ -6,7 +6,7 @@ on:
 
 jobs:
   ci:
-    uses: ./.github/workflows/ci.yml
+    uses: darknight08zz/DevCollab/.github/workflows/ci.yml@main
 
   deploy-api:
     needs: ci
@@ -14,10 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install Railway CLI
+        run: npm i -g @railway/cli
+
       - name: Deploy to Railway
-        uses: banyis/railway-deploy@main
-        with:
-          service: devcollab-api
+        run: railway up --service=devcollab-api --detach
         env:
           RAILWAY_TOKEN: ${{ secrets.RAILWAY_TOKEN }}
 
