@@ -59,14 +59,14 @@ describe('Workspace Integration Tests', () => {
     expect(wsDetails.body.members.find((m: any) => m.user.email === 'invited@example.com')).toBeDefined();
   });
 
-  it('should enforce workspace limits for free users', async () => {
-    // The previous test created 1 workspace. Free users are limited to 1.
+  it('should allow multiple workspaces regardless of plan', async () => {
+    // The previous test created 1 workspace. We should now be able to create more.
     const secondWsRes = await request(app)
       .post('/workspaces')
       .set('Authorization', `Bearer ${authToken}`)
       .send({ name: 'Second Workspace' });
 
-    expect(secondWsRes.status).toBe(402); // Payment Required / Upgrade Required
-    expect(secondWsRes.body.error).toBe('upgrade_required');
+    expect(secondWsRes.status).toBe(201);
+    expect(secondWsRes.body.name).toBe('Second Workspace');
   });
 });

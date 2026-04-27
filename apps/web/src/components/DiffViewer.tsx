@@ -49,7 +49,6 @@ interface DiffViewerProps {
   onlineUsers?: any[];
   onTyping?: (lineNumber: number, isTyping: boolean) => void;
   onSuggestFix?: (commentId: string) => Promise<void>;
-  isRealtimeLocked?: boolean;
 }
 
 export const DiffViewer: React.FC<DiffViewerProps> = ({
@@ -69,7 +68,6 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
   onlineUsers = [],
   onTyping,
   onSuggestFix,
-  isRealtimeLocked = false
 }) => {
   const monaco = useMonaco();
   const editorRef = useRef<any>(null);
@@ -202,12 +200,7 @@ export const DiffViewer: React.FC<DiffViewerProps> = ({
         <span className="text-[10px] px-2 py-0.5 rounded-full bg-white/10 text-white/40 uppercase tracking-widest font-bold border border-white/5">
           {resolvedLanguage}
         </span>
-        {isRealtimeLocked && (
-          <div className="flex items-center gap-2 px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 text-[10px] font-bold border border-amber-500/20">
-            <Lock size={10} />
-            Collaboration Locked
-          </div>
-        )}
+
       </div>
       
       <div className="h-[500px] relative">

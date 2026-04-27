@@ -18,7 +18,6 @@ import {
 import axios from 'axios';
 import { useAuth } from '@/hooks/use-auth';
 import { motion } from 'framer-motion';
-import { usePlan } from '@/hooks/use-plan';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 
@@ -90,9 +89,8 @@ export default function NotificationSettingsPage() {
         headers: { Authorization: `Bearer ${session.accessToken}` }
       });
 
-      // Save slack config if team plan and workspace selected
-      const currentWorkspace = workspaces.find(w => w.id === selectedWorkspaceId);
-      if (currentWorkspace?.plan !== 'FREE' && slackWebhook) {
+      // Save slack config if webhook provided
+      if (slackWebhook) {
         await axios.post(`${API_URL}/integrations/slack/connect`, {
           workspaceId: selectedWorkspaceId,
           webhookUrl: slackWebhook,
@@ -105,18 +103,13 @@ export default function NotificationSettingsPage() {
       setSaveSuccess(true);
       setTimeout(() => setSaveSuccess(false), 3000);
     } catch (error: any) {
-      if (error.response?.status === 402) {
-        alert('Slack integration requires the TEAM plan.');
-      } else {
         alert('Failed to save settings');
-      }
     } finally {
       setIsSaving(false);
     }
   };
 
-  const currentWorkspace = workspaces.find(w => w.id === selectedWorkspaceId);
-  const isTeamPlan = currentWorkspace?.plan === 'TEAM' || currentWorkspace?.plan === 'ENTERPRISE';
+
 
   return (
     <div className="min-h-screen bg-[#050505] text-white p-8">
@@ -203,14 +196,10 @@ export default function NotificationSettingsPage() {
               </div>
               <h2 className="text-xl font-bold">Slack Integration</h2>
             </div>
-            {!isTeamPlan && (
-              <span className="text-[10px] bg-rose-500/10 text-rose-400 border border-rose-500/20 px-2 py-1 rounded-full font-black tracking-widest uppercase">
-                Team Plan Required
-              </span>
-            )}
+
           </div>
 
-          <div className={`bg-white/5 border border-white/10 rounded-[32px] p-8 space-y-8 ${!isTeamPlan ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
+          <div className="bg-white/5 border border-white/10 rounded-[32px] p-8 space-y-8">
             <div className="space-y-4">
               <label className="text-sm font-bold text-white/60">Target Workspace</label>
               <select 
@@ -219,7 +208,7 @@ export default function NotificationSettingsPage() {
                 className="w-full bg-[#050505] border border-white/10 rounded-2xl p-4 text-sm font-medium focus:outline-none focus:border-indigo-500 transition-colors"
               >
                 {workspaces.map(ws => (
-                  <option key={ws.id} value={ws.id}>{ws.name} ({ws.plan})</option>
+                  <option key={ws.id} value={ws.id}>{ws.name}</option>
                 ))}
               </select>
             </div>
@@ -251,17 +240,7 @@ export default function NotificationSettingsPage() {
               />
             </div>
 
-            {!isTeamPlan && (
-              <div className="p-6 bg-rose-500/10 border border-rose-500/20 rounded-3xl text-center space-y-4">
-                <p className="text-sm font-bold text-rose-400">Slack integration is exclusive to the Team plan.</p>
-                <button 
-                  onClick={() => router.push('/billing')}
-                  className="bg-rose-500 text-white px-6 py-2 rounded-xl text-xs font-bold hover:bg-rose-400 transition-all shadow-[0_0_15px_rgba(225,29,72,0.3)]"
-                >
-                  Upgrade to Team
-                </button>
-              </div>
-            )}
+
           </div>
         </section>
       </div>
