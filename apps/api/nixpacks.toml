@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ["nodejs_20"]
+
+[phases.install]
+cmds = ["pnpm install --frozen-lockfile"]
+
+[phases.build]
+cmds = ["pnpm build", "pnpm prisma generate"]
+
+[start]
+cmd = "pnpm prisma migrate deploy && pnpm start"

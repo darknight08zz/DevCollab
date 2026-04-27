@@ -1,0 +1,245 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/client"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+enum Plan {
+  FREE
+  PRO
+  TEAM
+  ENTERPRISE
+}
+
+enum MemberRole {
+  OWNER
+  ADMIN
+  REVIEWER
+  VIEWER
+}
+
+enum PRStatus {
+  OPEN
+  CLOSED
+  MERGED
+}
+
+model User {
+  id                        String   @id @default(uuid())
+  email                     String   @unique
+  name                      String?
+  avatarUrl                 String?
+  githubId                  String?  @unique
+  githubUsername            String?
+  githubAccessToken         String?
+  createdAt                 DateTime @default(now())
+  emailNotificationsEnabled Boolean  @default(true)
+  updatedAt                 DateTime @updatedAt
+
+  ownedWorkspaces Workspace[]
+  memberships     WorkspaceMember[]
+  pullRequests    PullRequest[]
+  reviewSessions  ReviewSession[]
+  comments        Comment[]
+  notifications   Notification[]
+  assignedPRs     PullRequest[]     @relation("PRReviewer")
+  auditLogs       AuditLog[]
+}
+
+model Workspace {
+  id        String   @id @default(uuid())
+  name      String
+  slug      String   @unique
+  plan      Plan     @default(FREE)
+  ownerId   String
+  createdAt DateTime @default(now())
+
+  owner        User                  @relation(fields: [ownerId], references: [id])
+  members      WorkspaceMember[]
+  repositories Repository[]
+  subscription Subscription?
+  slackConfig  WorkspaceSlackConfig?
+  auditLogs    AuditLog[]
+
+  @@index([ownerId])
+}
+
+model WorkspaceMember {
+  id          String     @id @default(uuid())
+  workspaceId String
+  userId      String
+  role        MemberRole @default(VIEWER)
+  joinedAt    DateTime   @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([workspaceId, userId])
+  @@index([workspaceId])
+  @@index([userId])
+}
+
+model Repository {
+  id            String   @id @default(uuid())
+  workspaceId   String
+  githubRepoId  String
+  name          String
+  fullName      String
+  defaultBranch String   @default("main")
+  isPrivate     Boolean  @default(false)
+  createdAt     DateTime @default(now())
+
+  workspace    Workspace     @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  pullRequests PullRequest[]
+
+  @@unique([workspaceId, githubRepoId])
+  @@index([workspaceId])
+}
+
+model PullRequest {
+  id             String   @id @default(uuid())
+  repositoryId   String
+  githubPrNumber Int
+  title          String
+  body           String?
+  authorId       String
+  status         PRStatus @default(OPEN)
+  headBranch     String
+  baseBranch     String
+  diffUrl        String?
+  aiSummary      String?  @db.Text
+  securityScore  Int?     @default(100)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  reviewerId     String?
+
+  repository       Repository        @relation(fields: [repositoryId], references: [id], onDelete: Cascade)
+  author           User              @relation(fields: [authorId], references: [id])
+  reviewer         User?             @relation("PRReviewer", fields: [reviewerId], references: [id])
+  reviewSessions   ReviewSession[]
+  securityFindings SecurityFinding[]
+
+  @@unique([repositoryId, githubPrNumber])
+  @@index([repositoryId])
+  @@index([authorId])
+}
+
+model SecurityFinding {
+  id              String   @id @default(uuid())
+  pullRequestId   String
+  filePath        String
+  lineNumber      Int
+  severity        String // critical, high, medium, low
+  category        String // secret, injection, xss, etc.
+  cweId           String?
+  description     String   @db.Text
+  remediation     String   @db.Text
+  isFalsePositive Boolean  @default(false)
+  createdAt       DateTime @default(now())
+
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id], onDelete: Cascade)
+
+  @@index([pullRequestId])
+}
+
+model ReviewSession {
+  id            String    @id @default(uuid())
+  pullRequestId String
+  createdBy     String
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  endedAt       DateTime?
+
+  pullRequest PullRequest @relation(fields: [pullRequestId], references: [id], onDelete: Cascade)
+  creator     User        @relation(fields: [createdBy], references: [id])
+  comments    Comment[]
+
+  @@index([pullRequestId])
+}
+
+model Comment {
+  id              String    @id @default(uuid())
+  reviewSessionId String
+  authorId        String
+  filePath        String
+  lineNumber      Int
+  content         String
+  parentId        String?
+  resolvedAt      DateTime?
+  isAI            Boolean   @default(false)
+  severity        String? // error, warning, suggestion
+  category        String? // security, performance, style, logic, documentation
+  suggestedFix    String?   @db.Text
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  reviewSession ReviewSession @relation(fields: [reviewSessionId], references: [id], onDelete: Cascade)
+  author        User          @relation(fields: [authorId], references: [id])
+  parent        Comment?      @relation("CommentThread", fields: [parentId], references: [id])
+  replies       Comment[]     @relation("CommentThread")
+
+  @@index([reviewSessionId])
+  @@index([authorId])
+  @@index([parentId])
+}
+
+model Subscription {
+  id                   String   @id @default(uuid())
+  workspaceId          String   @unique
+  stripeCustomerId     String
+  stripePriceId        String
+  stripeSubscriptionId String   @unique
+  status               String
+  currentPeriodEnd     DateTime
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String // comment, reply, assignment, ai_complete, security_critical, member_join
+  title     String
+  body      String
+  link      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}
+
+model WorkspaceSlackConfig {
+  id          String   @id @default(uuid())
+  workspaceId String   @unique
+  webhookUrl  String
+  channelName String?
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([workspaceId])
+}
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  workspaceId String
+  actorId     String
+  action      String // e.g., member_invited, settings_updated, pr_reviewed
+  metadata    Json?
+  createdAt   DateTime @default(now())
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  actor     User      @relation(fields: [actorId], references: [id])
+
+  @@index([workspaceId])
+  @@index([actorId])
+}
