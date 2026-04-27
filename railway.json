@@ -4,7 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "pnpm --filter=@devcollab/api prisma migrate deploy && pnpm --filter=@devcollab/api start",
+    "startCommand": "pnpm --filter=@devcollab/api exec prisma migrate deploy && pnpm --filter=@devcollab/api exec prisma generate && pnpm --filter=@devcollab/api build && pnpm --filter=@devcollab/api start",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 30,
     "restartPolicyType": "ON_FAILURE",
