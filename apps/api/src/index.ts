@@ -61,14 +61,31 @@ app.get('/', (req, res) => {
 
 // Health check
 app.get('/api/health', async (req, res) => {
-  const dbConnected = await prisma.$queryRaw`SELECT 1`.then(() => true).catch(() => false);
-  const redisConnected = redis.status === 'ready';
-  res.json({
-    status: dbConnected && redisConnected ? 'ok' : 'degraded',
-    uptime: process.uptime(),
-    dbConnected,
-    redisConnected
-  });
+  try {
+    // Check DB with a 2-second timeout
+    const dbPromise = prisma.$queryRaw`SELECT 1`;
+    const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error('DB Timeout')), 2000));
+    
+    const dbConnected = await Promise.race([dbPromise, timeoutPromise])
+      .then(() => true)
+      .catch((err) => {
+        logger.warn({ err }, 'Healthcheck: DB check failed');
+        return false;
+      });
+
+    const redisConnected = redis.status === 'ready';
+    
+    res.status(200).json({
+      status: dbConnected && redisConnected ? 'ok' : 'degraded',
+      uptime: process.uptime(),
+      dbConnected,
+      redisConnected,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    logger.error({ error }, 'Healthcheck: Fatal error');
+    res.status(200).json({ status: 'error', message: 'Healthcheck failed but process is alive' });
+  }
 });
 
 app.use('/auth', authRateLimit, authRoutes);
@@ -93,8 +110,8 @@ initSocket(httpServer);
 initYjsServer();
 
 if (process.env.NODE_ENV !== 'test') {
-  httpServer.listen(port, () => {
-    console.log(`Server is running at http://localhost:${port}`);
+  httpServer.listen(Number(port), '0.0.0.0', () => {
+    logger.info(`Server is running on port ${port}`);
   });
 }
 
